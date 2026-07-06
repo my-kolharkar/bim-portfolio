@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIM MEP Modeler Portfolio | Projects</title>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(102, 252, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(102, 252, 241, 0.03) 1px, transparent 1px);
+        }
+    </style>
+</head>
+<body class="bg-[#0b0c10] text-gray-300 font-sans antialiased bg-grid selection:bg-[#66fcf1] selection:text-[#0b0c10] min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#0b0c10]/80 backdrop-blur-md border-b border-gray-800/50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold tracking-wider text-white flex items-center gap-2">
+                <span class="text-[#66fcf1] font-mono">&lt;MEP&gt;</span> BIM PORTFOLIO
+            </a>
+            <div class="hidden md:flex space-x-8 font-mono text-sm tracking-wide">
+                <a href="index.html" class="hover:text-[#66fcf1] transition-colors">HOME</a>
+                <a href="projects.html" class="text-[#66fcf1] transition-colors">PROJECTS</a>
+                <a href="documents.html" class="hover:text-[#66fcf1] transition-colors">DOCUMENTS</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-16 w-full">
+        <div class="mb-12">
+            <p class="font-mono text-xs text-[#66fcf1] tracking-widest uppercase mb-2">// 01 . IMAGE ARCHIVE</p>
+            <h1 class="text-4xl font-bold text-white tracking-tight">MEP Systems Render Showcase</h1>
+            <p class="text-gray-400 text-sm mt-2 max-w-xl">High-resolution 3D extractions highlighting complex mechanical run layouts, routing clearances, and multi-trade system integrity.</p>
+        </div>
+        
+        <!-- Grid Layout for JPEG Images -->
+        <div class="grid md:grid-cols-3 gap-6">
+            <!-- Image Card 1 -->
+            <div class="group bg-gray-900/40 border border-gray-800 rounded-xl p-4 transition-all hover:border-[#66fcf1]/40">
+                <div class="aspect-video bg-gray-800 rounded-lg overflow-hidden mb-4 relative">
+                    <img src="./assets/images/hvac-layout.jpg" alt="HVAC Ducting Layout" class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity">
+                    <div class="absolute top-3 left-3 bg-[#0b0c10]/80 text-xs px-2 py-1 font-mono rounded text-[#66fcf1] border border-gray-800">HVAC</div>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">Commercial Complex Duct Layout</h3>
+                <p class="text-sm text-gray-400">High-velocity VAV infrastructure modeling complete with air handler scheduling and pressure loss calculations.</p>
+            </div>
+
+            <!-- Image Card 2 -->
+            <div class="group bg-gray-900/40 border border-gray-800 rounded-xl p-4 transition-all hover:border-[#66fcf1]/40">
+                <div class="aspect-video bg-gray-800 rounded-lg overflow-hidden mb-4 relative">
+                    <img src="./assets/images/electrical-tray.jpg" alt="Electrical Cable Trays" class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity">
+                    <div class="absolute top-3 left-3 bg-[#0b0c10]/80 text-xs px-2 py-1 font-mono rounded text-amber-400 border border-gray-800">ELECTRICAL</div>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">Industrial Electrical Cable Containment</h3>
+                <p class="text-sm text-gray-400">Multi-tier heavy cable tray layouts designed around structural columns with safety clearances.</p>
+            </div>
+
+            <!-- Image Card 3 -->
+            <div class="group bg-gray-900/40 border border-gray-800 rounded-xl p-4 transition-all hover:border-[#66fcf1]/40">
+                <div class="aspect-video bg-gray-800 rounded-lg overflow-hidden mb-4 relative">
+                    <img src="./assets/images/clash-detection.jpg" alt="Clash Detection Matrix" class="w-full h-full object-cover opacity-75 group-hover:opacity-100 transition-opacity">
+                    <div class="absolute top-3 left-3 bg-[#0b0c10]/80 text-xs px-2 py-1 font-mono rounded text-rose-400 border border-gray-800">CLASH ANALYSIS</div>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-1">Data Center Coordination Run</h3>
+                <p class="text-sm text-gray-400">Hard-clash isolation utilizing Navisworks Matrix workflows reducing field re-work instances to near-zero.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer class="border-t border-gray-950 bg-gray-950/50 py-8 px-6 text-center text-xs font-mono text-gray-500 tracking-wider mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p>&copy; 2026 MEP BIM PORTFOLIO. ALL RIGHTS RESERVED.</p>
+            <p>HOSTED ON GITHUB PAGES</p>
+        </div>
+    </footer>
+</body>
+</html>
