@@ -1,849 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Yusuf | MEP BIM Portfolio</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
-<style>
-  /* ── TOKENS ──────────────────────────────────────────────── */
-  :root {
-    --navy:    #0B1E33;
-    --ink:     #0F2744;
-    --steel:   #1A4A7A;
-    --accent:  #00C2FF;
-    --gold:    #F5A623;
-    --fog:     #E8EFF7;
-    --mist:    #F4F7FC;
-    --white:   #FFFFFF;
-    --text:    #1C2B3A;
-    --sub:     #5A738A;
-    --mono:    'DM Mono', monospace;
-    --sans:    'Space Grotesk', sans-serif;
-    --radius:  6px;
-    --max:     1100px;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--sans);
-    background: var(--mist);
-    color: var(--text);
-    line-height: 1.65;
-    font-size: 16px;
-  }
-
-  /* ── NAV ─────────────────────────────────────────────────── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(11,30,51,0.96);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(0,194,255,0.15);
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 2rem; height: 60px;
-  }
-  .nav-brand {
-    font-family: var(--mono); font-size: 0.85rem; color: var(--accent);
-    letter-spacing: 0.08em; text-transform: uppercase;
-  }
-  .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a {
-    color: rgba(255,255,255,0.75); text-decoration: none;
-    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.04em;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--accent); }
-
-  /* ── HERO ─────────────────────────────────────────────────── */
-  #hero {
-    min-height: 100vh;
-    background: var(--navy);
-    display: flex; align-items: center;
-    padding: 100px 2rem 4rem;
-    position: relative; overflow: hidden;
-  }
-
-  /* Blueprint grid background */
-  #hero::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,194,255,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,194,255,0.06) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-
-  /* Accent glow blob */
-  #hero::after {
-    content: '';
-    position: absolute;
-    width: 600px; height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,194,255,0.08) 0%, transparent 70%);
-    top: -100px; right: -100px;
-    pointer-events: none;
-  }
-
-  .hero-inner {
-    max-width: var(--max); margin: 0 auto;
-    display: grid; grid-template-columns: 1fr auto;
-    gap: 3rem; align-items: center;
-    position: relative; z-index: 1;
-  }
-
-  .hero-eyebrow {
-    font-family: var(--mono); font-size: 0.78rem;
-    color: var(--accent); letter-spacing: 0.12em;
-    text-transform: uppercase; margin-bottom: 1.2rem;
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-  .hero-eyebrow::before {
-    content: ''; display: block;
-    width: 28px; height: 1px; background: var(--accent);
-  }
-
-  h1 {
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
-    font-weight: 700; color: var(--white);
-    line-height: 1.1; letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-  }
-  h1 span { color: var(--accent); }
-
-  .hero-sub {
-    font-size: 1.05rem; color: rgba(255,255,255,0.6);
-    max-width: 520px; margin-bottom: 2rem;
-  }
-
-  .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
-  .tag {
-    font-family: var(--mono); font-size: 0.72rem;
-    padding: 0.3rem 0.75rem; border-radius: 3px;
-    border: 1px solid rgba(0,194,255,0.3);
-    color: rgba(0,194,255,0.8); letter-spacing: 0.06em;
-  }
-
-  .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; }
-  .btn {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    padding: 0.7rem 1.5rem; border-radius: var(--radius);
-    font-size: 0.88rem; font-weight: 600; cursor: pointer;
-    text-decoration: none; transition: all 0.2s;
-    letter-spacing: 0.02em;
-  }
-  .btn-primary {
-    background: var(--accent); color: var(--navy);
-  }
-  .btn-primary:hover { background: #33CCFF; transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent; color: var(--white);
-    border: 1px solid rgba(255,255,255,0.25);
-  }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* Stats strip */
-  .hero-stats {
-    display: flex; flex-direction: column; gap: 1.5rem;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(0,194,255,0.12);
-    border-radius: var(--radius);
-    padding: 1.8rem 2rem;
-    min-width: 180px;
-  }
-  .stat-num {
-    font-family: var(--mono); font-size: 2rem;
-    font-weight: 500; color: var(--accent); line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.75rem; color: rgba(255,255,255,0.45);
-    text-transform: uppercase; letter-spacing: 0.08em;
-  }
-
-  /* ── SECTION SHELL ───────────────────────────────────────── */
-  section { padding: 5rem 2rem; }
-  .inner { max-width: var(--max); margin: 0 auto; }
-
-  .section-eyebrow {
-    font-family: var(--mono); font-size: 0.72rem;
-    color: var(--steel); letter-spacing: 0.12em;
-    text-transform: uppercase; margin-bottom: 0.5rem;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .section-eyebrow::before {
-    content: ''; width: 20px; height: 1px; background: var(--steel); display: block;
-  }
-
-  h2 {
-    font-size: clamp(1.6rem, 3vw, 2.1rem);
-    font-weight: 700; color: var(--ink);
-    letter-spacing: -0.02em; margin-bottom: 0.5rem;
-  }
-  .section-sub {
-    color: var(--sub); font-size: 0.95rem; margin-bottom: 3rem;
-    max-width: 560px;
-  }
-
-  /* ── SKILLS ──────────────────────────────────────────────── */
-  #skills { background: var(--white); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
-  }
-
-  .skill-card {
-    background: var(--mist);
-    border: 1px solid var(--fog);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    transition: border-color 0.2s, transform 0.2s;
-  }
-  .skill-card:hover {
-    border-color: var(--accent);
-    transform: translateY(-2px);
-  }
-  .skill-icon {
-    font-size: 1.6rem; margin-bottom: 0.75rem; display: block;
-  }
-  .skill-card h3 {
-    font-size: 0.92rem; font-weight: 600; color: var(--ink);
-    margin-bottom: 0.5rem;
-  }
-  .skill-items {
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
-  }
-  .skill-tag {
-    font-family: var(--mono); font-size: 0.68rem;
-    background: var(--fog); color: var(--steel);
-    padding: 0.2rem 0.55rem; border-radius: 3px;
-  }
-
-  /* ── PROJECTS ────────────────────────────────────────────── */
-  #projects { background: var(--mist); }
-
-  .projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .project-card {
-    background: var(--white);
-    border: 1px solid var(--fog);
-    border-radius: var(--radius);
-    overflow: hidden;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-  .project-card:hover {
-    box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-    transform: translateY(-3px);
-  }
-
-  /* Blueprint-style project image placeholder */
-  .project-img {
-    height: 180px;
-    position: relative; overflow: hidden;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .project-img .bp-grid {
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-    background-size: 20px 20px;
-  }
-  .project-img .bp-label {
-    font-family: var(--mono); font-size: 0.7rem;
-    color: rgba(255,255,255,0.5); letter-spacing: 0.1em;
-    position: relative; z-index: 1; text-align: center;
-  }
-  .project-img .bp-icon {
-    font-size: 2.5rem; display: block;
-    margin-bottom: 0.4rem; position: relative; z-index: 1;
-  }
-
-  .proj-body { padding: 1.4rem; }
-
-  .proj-discipline {
-    font-family: var(--mono); font-size: 0.68rem;
-    letter-spacing: 0.1em; text-transform: uppercase;
-    margin-bottom: 0.5rem;
-  }
-  .proj-body h3 {
-    font-size: 1rem; font-weight: 600; color: var(--ink);
-    margin-bottom: 0.4rem;
-  }
-  .proj-desc {
-    font-size: 0.85rem; color: var(--sub);
-    margin-bottom: 1rem; line-height: 1.55;
-  }
-
-  .proj-meta {
-    display: flex; flex-wrap: wrap; gap: 0.4rem;
-    padding-top: 0.9rem;
-    border-top: 1px solid var(--fog);
-  }
-  .proj-tag {
-    font-family: var(--mono); font-size: 0.66rem;
-    background: var(--mist); color: var(--steel);
-    padding: 0.2rem 0.5rem; border-radius: 3px;
-  }
-
-  /* ── WHAT I DELIVER ──────────────────────────────────────── */
-  #deliverables { background: var(--white); }
-
-  .deliverables-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
-  }
-  .del-card {
-    background: var(--mist);
-    border-left: 3px solid var(--accent);
-    padding: 1.25rem 1.4rem;
-    border-radius: 0 var(--radius) var(--radius) 0;
-  }
-  .del-card h3 {
-    font-size: 0.9rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem;
-  }
-  .del-card p { font-size: 0.82rem; color: var(--sub); line-height: 1.5; }
-
-  /* ── LINKEDIN SECTION ────────────────────────────────────── */
-  #linkedin { background: var(--ink); }
-  #linkedin h2 { color: var(--white); }
-  #linkedin .section-sub { color: rgba(255,255,255,0.5); }
-  #linkedin .section-eyebrow { color: var(--accent); }
-  #linkedin .section-eyebrow::before { background: var(--accent); }
-
-  .li-card {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: var(--radius);
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-  }
-  .li-card h3 {
-    font-size: 0.85rem; font-weight: 600;
-    color: var(--accent); margin-bottom: 0.75rem;
-    font-family: var(--mono); letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-  .li-text {
-    font-size: 0.88rem; color: rgba(255,255,255,0.75);
-    line-height: 1.7; white-space: pre-wrap;
-    font-family: var(--sans);
-  }
-  .copy-btn {
-    display: inline-flex; align-items: center; gap: 0.4rem;
-    margin-top: 0.9rem; padding: 0.4rem 0.9rem;
-    background: rgba(0,194,255,0.12); color: var(--accent);
-    border: 1px solid rgba(0,194,255,0.25); border-radius: 3px;
-    font-family: var(--mono); font-size: 0.7rem; cursor: pointer;
-    letter-spacing: 0.06em; transition: background 0.2s;
-  }
-  .copy-btn:hover { background: rgba(0,194,255,0.22); }
-
-  /* ── CONTACT / CTA ───────────────────────────────────────── */
-  #contact {
-    background: linear-gradient(135deg, var(--navy) 0%, var(--steel) 100%);
-    text-align: center; padding: 5rem 2rem;
-    position: relative; overflow: hidden;
-  }
-  #contact::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,194,255,0.05) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,194,255,0.05) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
-  #contact .inner { position: relative; z-index: 1; }
-  #contact h2 { color: var(--white); margin-bottom: 0.75rem; }
-  #contact p { color: rgba(255,255,255,0.6); margin-bottom: 2rem; font-size: 0.95rem; }
-
-  /* ── FOOTER ──────────────────────────────────────────────── */
-  footer {
-    background: var(--navy); text-align: center;
-    padding: 1.5rem 2rem;
-    font-family: var(--mono); font-size: 0.72rem;
-    color: rgba(255,255,255,0.3); letter-spacing: 0.06em;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-
-  /* ── RESPONSIVE ──────────────────────────────────────────── */
-  @media (max-width: 700px) {
-    .hero-inner { grid-template-columns: 1fr; }
-    .hero-stats { flex-direction: row; flex-wrap: wrap; min-width: unset; }
-    nav { padding: 0 1rem; }
-    .nav-links { gap: 1rem; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIM MEP Modeler Portfolio | Home</title>
+    <script src="https://jsdelivr.net"></script>
+    <style>
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(102, 252, 241, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(102, 252, 241, 0.03) 1px, transparent 1px);
+        }
+    </style>
 </head>
-<body>
+<body class="bg-[#0b0c10] text-gray-300 font-sans antialiased bg-grid selection:bg-[#66fcf1] selection:text-[#0b0c10] min-h-screen flex flex-col">
 
-<!-- NAV -->
-<nav>
-  <span class="nav-brand">YM · BIM Portfolio</span>
-  <ul class="nav-links">
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#deliverables">Deliverables</a></li>
-    <li><a href="#linkedin">LinkedIn</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section id="hero">
-  <div class="hero-inner">
-    <div>
-      <p class="hero-eyebrow">MEP BIM Modeller · Bangalore, India</p>
-      <h1>Building <span>intelligent</span><br>MEP models<br>that coordinate.</h1>
-      <p class="hero-sub">
-        3 years of experience in Revit MEP, BIM coordination, and 3D spatial data workflows.
-        Specialising in mechanical systems, clash detection, and construction documentation.
-      </p>
-      <div class="tag-row">
-        <span class="tag">Revit MEP</span>
-        <span class="tag">Navisworks</span>
-        <span class="tag">HVAC</span>
-        <span class="tag">BIM Coordination</span>
-        <span class="tag">Clash Detection</span>
-        <span class="tag">LOD 300–350</span>
-        <span class="tag">IFC</span>
-        <span class="tag">AutoCAD</span>
-      </div>
-      <div class="btn-row">
-        <a href="#projects" class="btn btn-primary">View Projects ↓</a>
-        <a href="#contact" class="btn btn-ghost">Get in Touch</a>
-      </div>
-    </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-num">3+</div>
-        <div class="stat-label">Years Experience</div>
-      </div>
-      <div>
-        <div class="stat-num">MEP</div>
-        <div class="stat-label">Primary Discipline</div>
-      </div>
-      <div>
-        <div class="stat-num">VTU</div>
-        <div class="stat-label">Mech. Engineering</div>
-      </div>
-      <div>
-        <div class="stat-num">BIM</div>
-        <div class="stat-label">ISO 19650 Aware</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section id="skills">
-  <div class="inner">
-    <p class="section-eyebrow">Capabilities</p>
-    <h2>Core Skills</h2>
-    <p class="section-sub">Tools and workflows I use to model, coordinate, and document MEP systems.</p>
-    <div class="skills-grid">
-
-      <div class="skill-card">
-        <span class="skill-icon">🏗️</span>
-        <h3>Revit MEP Modelling</h3>
-        <div class="skill-items">
-          <span class="skill-tag">Mechanical Systems</span>
-          <span class="skill-tag">Ductwork Routing</span>
-          <span class="skill-tag">HVAC Equipment</span>
-          <span class="skill-tag">Families & Types</span>
-          <span class="skill-tag">Worksharing</span>
+    <!-- Interactive Navigation -->
+    <nav class="sticky top-0 z-50 bg-[#0b0c10]/80 backdrop-blur-md border-b border-gray-800/50 px-6 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-xl font-bold tracking-wider text-white flex items-center gap-2">
+                <span class="text-[#66fcf1] font-mono">&lt;MEP&gt;</span> BIM PORTFOLIO
+            </a>
+            <!-- Desktop Links -->
+            <div class="hidden md:flex space-x-8 font-mono text-sm tracking-wide">
+                <a href="index.html" class="text-[#66fcf1] transition-colors">HOME</a>
+                <a href="projects.html" class="hover:text-[#66fcf1] transition-colors">PROJECTS</a>
+                <a href="documents.html" class="hover:text-[#66fcf1] transition-colors">DOCUMENTS</a>
+            </div>
+            <!-- Mobile Menu Toggle Button -->
+            <button id="menu-btn" class="md:hidden text-white hover:text-[#66fcf1] focus:outline-none" aria-label="Toggle Navigation Menu">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
         </div>
-      </div>
-
-      <div class="skill-card">
-        <span class="skill-icon">⚡</span>
-        <h3>Electrical & Plumbing</h3>
-        <div class="skill-items">
-          <span class="skill-tag">Lighting Circuits</span>
-          <span class="skill-tag">Cable Trays</span>
-          <span class="skill-tag">Pipe Systems</span>
-          <span class="skill-tag">Drainage Slopes</span>
-          <span class="skill-tag">Panel Schedules</span>
+        <!-- Mobile Dropdown Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden border-t border-gray-900 bg-[#0b0c10]/95 backdrop-blur-md flex flex-col px-6 py-4 space-y-4 font-mono text-sm">
+            <a href="index.html" class="text-[#66fcf1]">HOME</a>
+            <a href="projects.html" class="hover:text-[#66fcf1] transition-colors">PROJECTS</a>
+            <a href="documents.html" class="hover:text-[#66fcf1] transition-colors">DOCUMENTS</a>
         </div>
-      </div>
+    </nav>
 
-      <div class="skill-card">
-        <span class="skill-icon">🔍</span>
-        <h3>BIM Coordination</h3>
-        <div class="skill-items">
-          <span class="skill-tag">Navisworks Manage</span>
-          <span class="skill-tag">Clash Detective</span>
-          <span class="skill-tag">BCF Issues</span>
-          <span class="skill-tag">Federated Models</span>
-          <span class="skill-tag">NWC / NWD / NWF</span>
-        </div>
-      </div>
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl mx-auto px-6 py-16 md:py-24 space-y-24">
+        <!-- Hero Section -->
+        <header class="grid md:grid-cols-12 gap-12 items-center">
+            <div class="md:col-span-8 space-y-6">
+                <div class="inline-block px-3 py-1 bg-[#66fcf1]/10 text-[#66fcf1] font-mono text-xs rounded border border-[#66fcf1]/20 uppercase tracking-widest">
+                    Available for Coordination Contracts
+                </div>
+                <h1 class="text-4xl md:text-6xl font-black text-white tracking-tight leading-tight">
+                    BIM MEP Modeler & <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#66fcf1] to-blue-500">Coordination Specialist</span>
+                </h1>
+                <p class="text-lg md:text-xl text-gray-400 max-w-2xl leading-relaxed">
+                    Designing precision-engineered HVAC, Electrical, and Piping infrastructure systems. Specializing in strict clash detection, spatial optimization, and seamless multi-disciplinary coordination.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-4 font-mono text-sm">
+                    <a href="projects.html" class="bg-[#66fcf1] text-[#0b0c10] font-bold px-6 py-3 rounded hover:bg-[#4ee2d8] transition-all transform hover:-translate-y-0.5 shadow-lg shadow-[#66fcf1]/20">
+                        Explore My Projects &rarr;
+                    </a>
+                    <a href="./assets/documents/resume.pdf" download class="border border-gray-700 bg-gray-900/50 text-white px-6 py-3 rounded hover:bg-gray-800 hover:border-gray-600 transition-all">
+                        Download Resume (PDF)
+                    </a>
+                </div>
+            </div>
+        </header>
 
-      <div class="skill-card">
-        <span class="skill-icon">📄</span>
-        <h3>Documentation</h3>
-        <div class="skill-items">
-          <span class="skill-tag">Construction Drawings</span>
-          <span class="skill-tag">Schedules & BOQ</span>
-          <span class="skill-tag">View Templates</span>
-          <span class="skill-tag">Sheet Setup</span>
-          <span class="skill-tag">Revision Control</span>
-        </div>
-      </div>
+        <!-- Connect & Contact Section -->
+        <section class="border-t border-gray-900 pt-20">
+            <div class="mb-12">
+                <p class="font-mono text-xs text-[#66fcf1] tracking-widest uppercase mb-2">// COLLABORATION</p>
+                <h2 class="text-3xl font-bold text-white tracking-tight">Initiate Coordination Project</h2>
+            </div>
 
-      <div class="skill-card">
-        <span class="skill-icon">🌐</span>
-        <h3>Open BIM & Data</h3>
-        <div class="skill-items">
-          <span class="skill-tag">IFC Export</span>
-          <span class="skill-tag">COBie Awareness</span>
-          <span class="skill-tag">ISO 19650</span>
-          <span class="skill-tag">LOD 100–400</span>
-          <span class="skill-tag">BEP Understanding</span>
-        </div>
-      </div>
+            <div class="grid md:grid-cols-12 gap-12 items-start">
+                <div class="md:col-span-5 space-y-6">
+                    <h3 class="text-xl font-bold text-white">Direct Channels</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Skip the form by selecting a standard direct link below. Let's sync on project timelines instantly.
+                    </p>
+                    <div class="flex flex-col gap-3 font-mono text-sm pt-2">
+                        <a href="https://linkedin.com" target="_blank" class="w-full flex items-center justify-center gap-3 bg-gradient-to-r from-blue-700 to-blue-600 text-white font-bold py-3.5 px-6 rounded-lg hover:from-blue-600 hover:to-blue-500 transition-all transform hover:-translate-y-0.5 text-center shadow-lg shadow-blue-700/10">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                            Connect on LinkedIn
+                        </a>
+                        <a href="mailto:your.email@://example.com" class="w-full flex items-center justify-center gap-3 border border-gray-800 bg-gray-900/40 text-white font-bold py-3.5 px-6 rounded-lg hover:bg-gray-800 hover:border-gray-700 transition-all transform hover:-translate-y-0.5 text-center">
+                            <svg class="w-5 h-5 stroke-current fill-none" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            Email Me Directly
+                        </a>
+                    </div>
+                </div>
 
-      <div class="skill-card">
-        <span class="skill-icon">📊</span>
-        <h3>Additional Skills</h3>
-        <div class="skill-items">
-          <span class="skill-tag">3D Data Annotation</span>
-          <span class="skill-tag">LiDAR / Point Cloud</span>
-          <span class="skill-tag">AutoCAD</span>
-          <span class="skill-tag">Oracle DB</span>
-          <span class="skill-tag">Python / ReportLab</span>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="inner">
-    <p class="section-eyebrow">Portfolio</p>
-    <h2>Practice Projects</h2>
-    <p class="section-sub">Self-directed Revit MEP models built to develop and demonstrate coordination skills.</p>
-
-    <div class="projects-grid">
-
-      <!-- Project 1 -->
-      <div class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#0B2A45,#1A4A7A);">
-          <div class="bp-grid"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <span class="bp-icon">🌬️</span>
-            <span class="bp-label">HVAC SYSTEM MODEL</span>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-discipline" style="color:#00C2FF;">Mechanical · HVAC</div>
-          <h3>Commercial Office — HVAC Coordination</h3>
-          <p class="proj-desc">
-            Multi-storey office building HVAC model. Modelled AHU, VAV boxes, and supply/return ductwork at LOD 300. Ran Revit Interference Check and resolved structural clashes.
-          </p>
-          <div class="proj-meta">
-            <span class="proj-tag">Revit MEP</span>
-            <span class="proj-tag">Duct Sizing</span>
-            <span class="proj-tag">LOD 300</span>
-            <span class="proj-tag">Supply/Return</span>
-            <span class="proj-tag">Interference Check</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 2 -->
-      <div class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#0F2A1A,#1A6B3A);">
-          <div class="bp-grid"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <span class="bp-icon">💧</span>
-            <span class="bp-label">PLUMBING SYSTEM</span>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-discipline" style="color:#2ECC71;">Plumbing · Drainage</div>
-          <h3>Residential Block — Plumbing & Drainage</h3>
-          <p class="proj-desc">
-            Complete cold water, hot water, and sanitary drainage model for a 4-storey residential block. Applied drainage slopes (1:40), added isolation valves, and generated plumbing fixture schedules.
-          </p>
-          <div class="proj-meta">
-            <span class="proj-tag">Revit MEP</span>
-            <span class="proj-tag">DCW / DHW</span>
-            <span class="proj-tag">Sanitary</span>
-            <span class="proj-tag">Pipe Slopes</span>
-            <span class="proj-tag">Schedules</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 3 -->
-      <div class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#2A1A00,#7A4A00);">
-          <div class="bp-grid"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <span class="bp-icon">⚡</span>
-            <span class="bp-label">ELECTRICAL SYSTEMS</span>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-discipline" style="color:#F5A623;">Electrical · Lighting</div>
-          <h3>Office Floor — Electrical & Lighting</h3>
-          <p class="proj-desc">
-            Lighting and power circuits for a typical office floor plate. Placed fixtures, created lighting systems, generated panel schedules, and routed cable trays to distribution board.
-          </p>
-          <div class="proj-meta">
-            <span class="proj-tag">Revit MEP</span>
-            <span class="proj-tag">Lighting Circuits</span>
-            <span class="proj-tag">Panel Schedule</span>
-            <span class="proj-tag">Cable Tray</span>
-            <span class="proj-tag">Load Calc</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 4 -->
-      <div class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#1A0B33,#4A1A7A);">
-          <div class="bp-grid"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <span class="bp-icon">🔍</span>
-            <span class="bp-label">NAVISWORKS COORDINATION</span>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-discipline" style="color:#9B59B6;">BIM Coordination</div>
-          <h3>Multi-Discipline Clash Detection</h3>
-          <p class="proj-desc">
-            Federated Navisworks model combining Mechanical, Electrical, Plumbing, and Structural NWC files. Set up Clash Detective tests across all discipline pairs, managed clash statuses, and exported BCF reports.
-          </p>
-          <div class="proj-meta">
-            <span class="proj-tag">Navisworks</span>
-            <span class="proj-tag">Clash Detective</span>
-            <span class="proj-tag">BCF</span>
-            <span class="proj-tag">Search Sets</span>
-            <span class="proj-tag">NWC / NWF</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 5 -->
-      <div class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#001A2A,#003D5C);">
-          <div class="bp-grid"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <span class="bp-icon">🏥</span>
-            <span class="bp-label">PLANT ROOM</span>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-discipline" style="color:#00C2FF;">Mechanical · Hydronic</div>
-          <h3>Mechanical Plant Room — Chilled Water</h3>
-          <p class="proj-desc">
-            Detailed plant room model with chiller, cooling tower, primary and secondary CHW circuits, pumps, and valves. Coordinated routing sequences and checked maintenance access clearances.
-          </p>
-          <div class="proj-meta">
-            <span class="proj-tag">Revit MEP</span>
-            <span class="proj-tag">Chilled Water</span>
-            <span class="proj-tag">LOD 300</span>
-            <span class="proj-tag">Plant Room</span>
-            <span class="proj-tag">Pipe Systems</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Project 6 — Study Material Card -->
-      <div class="project-card">
-        <div class="project-img" style="background: linear-gradient(135deg,#1A1A00,#4A4A00);">
-          <div class="bp-grid"></div>
-          <div style="position:relative;z-index:1;text-align:center;">
-            <span class="bp-icon">📚</span>
-            <span class="bp-label">SELF-DIRECTED LEARNING</span>
-          </div>
-        </div>
-        <div class="proj-body">
-          <div class="proj-discipline" style="color:#F1C40F;">Knowledge Development</div>
-          <h3>Revit MEP & Navisworks Study Guides</h3>
-          <p class="proj-desc">
-            Self-authored comprehensive PDF study guides covering Revit MEP and Navisworks workflows, with 100 interview Q&A each. Demonstrates depth of technical knowledge and commitment to learning.
-          </p>
-          <div class="proj-meta">
-            <span class="proj-tag">Self-Study</span>
-            <span class="proj-tag">Technical Writing</span>
-            <span class="proj-tag">Python / PDF</span>
-            <span class="proj-tag">Interview Prep</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- DELIVERABLES -->
-<section id="deliverables">
-  <div class="inner">
-    <p class="section-eyebrow">What I Produce</p>
-    <h2>Project Deliverables</h2>
-    <p class="section-sub">The tangible outputs I can contribute to an MEP project team from day one.</p>
-    <div class="deliverables-grid">
-      <div class="del-card">
-        <h3>🗂️ Coordinated 3D Models</h3>
-        <p>Revit MEP models at LOD 300–350 with correct system assignments, offsets, and insulation applied.</p>
-      </div>
-      <div class="del-card">
-        <h3>📐 Construction Drawings</h3>
-        <p>Floor plans, sections, schematics, and details annotated and formatted on sheets for issue.</p>
-      </div>
-      <div class="del-card">
-        <h3>📋 Schedules & BOQ</h3>
-        <p>Equipment, duct, pipe, fixture, and electrical schedules linked live to the model.</p>
-      </div>
-      <div class="del-card">
-        <h3>🔴 Clash Reports</h3>
-        <p>Navisworks Clash Detective HTML and BCF reports identifying and tracking multi-discipline clashes.</p>
-      </div>
-      <div class="del-card">
-        <h3>🔗 Federated Models</h3>
-        <p>Navisworks NWF/NWD files combining all discipline NWC exports for coordination review.</p>
-      </div>
-      <div class="del-card">
-        <h3>📦 IFC Exports</h3>
-        <p>Open BIM IFC files for interoperability with non-Autodesk platforms and open BIM workflows.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LINKEDIN CONTENT GUIDE -->
-<section id="linkedin">
-  <div class="inner">
-    <p class="section-eyebrow">LinkedIn Strategy</p>
-    <h2>Ready-to-Use LinkedIn Content</h2>
-    <p class="section-sub">Copy, paste, and personalise these for your LinkedIn profile and posts.</p>
-
-    <!-- Headline -->
-    <div class="li-card">
-      <h3>📌 Profile Headline</h3>
-      <div class="li-text">MEP BIM Modeller | Revit MEP · Navisworks | Mechanical Systems · HVAC · Coordination | Bangalore, India</div>
-      <button class="copy-btn" onclick="copyText(this)">⎘ Copy</button>
-    </div>
-
-    <!-- About / Summary -->
-    <div class="li-card">
-      <h3>📝 About Section</h3>
-      <div class="li-text">I'm a Mechanical Engineering graduate with 3 years of professional experience in BIM modelling and MEP coordination, based in Bangalore, India.
-
-My core work is in Revit MEP — building 3D models of mechanical (HVAC, ductwork), electrical (lighting, power, cable trays), and plumbing (pipework, drainage) systems for commercial and residential projects. I understand how MEP systems fit together in the real spatial constraints of a building, and I work carefully to produce models that are correct, coordinated, and clash-free before they reach construction.
-
-I'm also trained in Navisworks Manage — setting up federated models, running Clash Detective tests, managing clash status workflows, and issuing BCF reports for coordination teams.
-
-I'm currently building my portfolio of practice projects and actively seeking MEP Revit Technician opportunities where I can contribute to a project team from day one.
-
-Skills: Revit MEP · Navisworks Manage · HVAC Modelling · Ductwork · Plumbing Systems · Electrical Systems · Clash Detection · BIM Coordination · IFC · LOD 300–350 · AutoCAD</div>
-      <button class="copy-btn" onclick="copyText(this)">⎘ Copy</button>
-    </div>
-
-    <!-- Post 1: Project showcase -->
-    <div class="li-card">
-      <h3>📣 Post — Project Showcase (HVAC Model)</h3>
-      <div class="li-text">I recently completed a self-directed Revit MEP model of a commercial office HVAC system — and I want to share what I learned.
-
-The model covers:
-✅ Air handling unit, VAV boxes, and supply/return ductwork at LOD 300
-✅ Correct system type assignments (Supply Air / Return Air / Exhaust)
-✅ Duct sizing using Revit's Equal Friction method
-✅ Revit Interference Check run against a structural model — resolved 12 clashes
-✅ Construction drawings with duct tags and air terminal schedules
-
-The biggest lesson: duct routing looks straightforward in plan view, but the real challenge is coordinating the vertical positions in the ceiling void. Section views revealed things that plan views completely missed.
-
-If you're hiring MEP Revit Technicians in Bangalore, I'd love to connect.
-
-#RevitMEP #BIM #HVAC #MEPCoordination #BIMJobs #Revit #AEC</div>
-      <button class="copy-btn" onclick="copyText(this)">⎘ Copy</button>
-    </div>
-
-    <!-- Post 2: Study guide -->
-    <div class="li-card">
-      <h3>📣 Post — Knowledge & Learning</h3>
-      <div class="li-text">I spent the last few weeks creating a comprehensive Revit MEP study guide — 7 chapters of structured notes covering HVAC, Electrical, Plumbing, BIM Coordination, and Clash Detection, plus 100 interview Q&A from beginner to advanced level.
-
-Why did I do this? Because I believe the best way to truly understand something is to try to explain it clearly to someone else. Writing these notes forced me to understand the "why" behind every workflow, not just the "how".
-
-Some things I understood much more deeply after writing them out:
-🔹 Why Search Sets beat Selection Sets in Navisworks Clash Detective (they're dynamic — auto-update when the model changes)
-🔹 Why LOD matters for clash detection (LOD 200 coordination is almost useless — insulation clashes only appear at LOD 300+)
-🔹 Why shared coordinates are non-negotiable before appending models in Navisworks
-
-Happy to share the PDF with anyone preparing for MEP BIM roles.
-
-#RevitMEP #Navisworks #BIM #SelfLearning #MEPEngineering #ClashDetection</div>
-      <button class="copy-btn" onclick="copyText(this)">⎘ Copy</button>
-    </div>
-
-    <!-- Post 3: Clash detection -->
-    <div class="li-card">
-      <h3>📣 Post — Clash Detection Insight</h3>
-      <div class="li-text">One thing that surprised me when I first learned Navisworks Clash Detective:
-
-Running ALL elements vs. ALL elements produces thousands of results — most of them noise. The real skill is in the test setup.
-
-What I now do instead:
-
-1️⃣ Structure vs. Mechanical Ductwork first (highest priority — beams are fixed, ducts must move)
-2️⃣ Structure vs. All Pipework
-3️⃣ Structure vs. Cable Trays
-4️⃣ Mechanical vs. Pipework
-5️⃣ Pipework vs. Cable Trays (with clearance tests)
-
-Use Search Sets for each group — not manual selections. They auto-update when the model refreshes, so re-running tests after model updates takes seconds, not hours.
-
-This is the kind of practical workflow knowledge that makes a difference in a real coordination project.
-
-Currently open to MEP Revit Technician roles in Bangalore and remote opportunities.
-
-#BIMCoordination #Navisworks #ClashDetection #RevitMEP #MEP #AEC #BIMJobs</div>
-      <button class="copy-btn" onclick="copyText(this)">⎘ Copy</button>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONTACT CTA -->
-<section id="contact">
-  <div class="inner">
-    <h2>Open to MEP Revit Technician Roles</h2>
-    <p>Based in Bangalore, India · Available for on-site and remote opportunities</p>
-    <div class="btn-row" style="justify-content:center;">
-      <a href="mailto:yusuf.kolharkar@gmail.com" class="btn btn-primary">✉ Email Me</a>
-      <a href="https://linkedin.com/in/mohammad-yusuf-kolharkar-73b999148/" class="btn btn-ghost" target="_blank">LinkedIn ↗</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © 2026 · Yusuf · MEP BIM Modeller · Bangalore, India · Built with purpose.
-</footer>
-
-<script>
-function copyText(btn) {
-  const text = btn.previousElementSibling.innerText;
-  navigator.clipboard.writeText(text).then(() => {
-    btn.textContent = '✓ Copied!';
-    setTimeout(() => { btn.innerHTML = '⎘ Copy'; }, 2000);
-  });
-}
-</script>
-
-</body>
-</html>
+                <!-- Contact Form with Success Feedback Logic -->
+                <div class="md:col-span-7 bg-gray-900/20 border border-gray-800 p-6 md:p-8 rounded-xl relative">
+                    <form id="contact-form" class="space-y-4">
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="space-y-1">
+                                <label class="text-xs font-mono tracking-wider text-gray-400 uppercase">Your Name</label>
+                                <input type="text" required class="w-full bg-gray-950 border border-gray-800 rounded p-3 text-sm focus:outline-none focus:border-[#66fcf1] text-white">
+                            </div>
+                            <div class="space-y-1">
+                                <label class="text-xs font-mono tracking-wider text-gray-400 uppercase">Email Address</label>
+                                <input type="email" required class="w-full bg-gray-950 border border-gray-800 rounded p-3 text-sm focus:outline-none focus:border-[#66fcf1] text-white">
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-mono tracking-wider text-gray-400 uppercase">Project Category</label>
+                            <select class="w-full bg-gray-950 border border-gray-800 rounded p-3 text-sm focus:outline-none focus:border-[#66fcf1] text-white font-mono">
+                                <option>Commercial Construction</option>
+                                <option>Industrial Plant Design</option>
+                                <option>Residential/Mixed-Use</option>
+                            </select>
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-mono tracking-wider text-gray-400 uppercase">Coordination Scope Description</label>
+                            <textarea rows="4" required class="w-full bg-gray-950 border border-gray-800 rounded p-3 text-sm focus:outline-none focus:border-[#66fcf1] text-white"></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-3 bg-gray-900 border border-gray-800 rounded text-sm font-mono tracking-wide font-bold hover:bg-gray-800 hover:text-[#66fcf1] transition-all hover:border-[#66fcf1]/30 text-white">
+                            Transmit Project Brief
+                        </button>
+                    </form>
+                    <!-- JavaScript Success Notification Container -->
+                    <div id="form-success" class="hidden absolute inset-0 bg-[#0b0c10]/95 flex flex-col items-center justify-center p-6 text-center rounded-xl space-y-3">
+                        <svg class="w-12 h-12 text-[#66fcf1]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <h4 class="text-lg font-bold text-white font-mono">Transmission Successful</h4>
